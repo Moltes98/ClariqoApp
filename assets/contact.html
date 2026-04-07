@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Clariqo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#0f1117;
+  --panel:#191d27;
+  --border:#252b3a;
+  --teal:#2dd4bf;
+  --blue:#2563eb;
+  --text:#e8ecf4;
+  --muted:#6b7694;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text)}
+
+.container{max-width:700px;margin:auto;padding:120px 20px}
+
+h1{font-family:'Playfair Display';font-size:42px;margin-bottom:16px}
+
+p{color:var(--muted);margin-bottom:30px}
+
+.notice{
+  color:var(--muted);
+  font-size:14px;
+  margin-top:-10px;
+  margin-bottom:28px;
+}
+.notice strong{color:var(--text);font-weight:600}
+
+.tabs{display:flex;gap:10px;margin-bottom:30px}
+.tab{
+  flex:1;
+  padding:12px;
+  text-align:center;
+  border:1px solid var(--border);
+  border-radius:8px;
+  cursor:pointer;
+  color:var(--muted);
+  transition:0.25s;
+  user-select:none;
+}
+.tab.active{
+  background:linear-gradient(135deg,var(--teal),var(--blue));
+  color:white;
+  border-color:transparent;
+}
+
+.form-group{margin-bottom:20px}
+label{display:block;margin-bottom:6px;font-size:14px}
+
+input, textarea, select{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  font-size:14px;
+  font-family:inherit;
+}
+
+select{
+  appearance:none;
+  background-image:linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:calc(100% - 18px) calc(50% - 3px), calc(100% - 12px) calc(50% - 3px);
+  background-size:6px 6px, 6px 6px;
+  background-repeat:no-repeat;
+  padding-right:38px;
+}
+
+textarea{min-height:150px;resize:vertical}
+.char-count{font-size:12px;color:var(--muted);margin-top:6px;text-align:right}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(135deg,var(--teal),var(--blue));
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+button:hover{opacity:0.92}
+.hidden{display:none}
+.helper{font-size:12px;color:var(--muted);margin-top:6px}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Contact Clariqo</h1>
+  <p>Have a question, need help, or found a bug? Choose the type below and send us a message.</p>
+  <div class="notice">You should expect a response from <strong>contact@clariqoapp.com</strong>.</div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('contact')">Contact</div>
+    <div class="tab" onclick="switchTab('bug')">Report a Bug</div>
+  </div>
+
+  <form id="contact-form">
+    <div class="form-group">
+      <label for="contact-email">Email Address</label>
+      <input id="contact-email" type="email" required placeholder="you@example.com">
+    </div>
+
+    <div class="form-group">
+      <label for="contact-reason">Reason for Contact</label>
+      <select id="contact-reason" required>
+        <option value="" disabled selected>Select a reason</option>
+        <option>Payment or purchase issue</option>
+        <option>Licence activation help</option>
+        <option>Download or installation problem</option>
+        <option>Account or key recovery</option>
+        <option>Refund or billing question</option>
+        <option>Feature request or feedback</option>
+        <option>General support enquiry</option>
+        <option>My issue is not listed here</option>
+      </select>
+      <div class="helper">This selected reason will be used as the subject line.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="contact-message">Your Message (max 500 words)</label>
+      <textarea id="contact-message" placeholder="Write your message here..." required></textarea>
+      <div class="char-count" id="contact-counter">0 / 500 words</div>
+    </div>
+
+    <button type="submit">Send Message</button>
+  </form>
+
+  <form id="bug-form" class="hidden">
+    <div class="form-group">
+      <label for="bug-email">Email Address</label>
+      <input id="bug-email" type="email" required placeholder="you@example.com">
+    </div>
+
+    <div class="form-group">
+      <label for="bug-reason">Bug Type</label>
+      <select id="bug-reason" required>
+        <option value="" disabled selected>Select a bug type</option>
+        <option>App crashes on launch</option>
+        <option>Feature not responding</option>
+        <option>Incorrect calculation or totals</option>
+        <option>Data not saving properly</option>
+        <option>Activation or licence error</option>
+        <option>UI layout or display issue</option>
+        <option>Import or export not working</option>
+        <option>Performance or freezing issue</option>
+        <option>My issue is not listed here</option>
+      </select>
+      <div class="helper">This selected bug type will be used as the subject line.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="bug-message">Describe the Bug (max 500 words)</label>
+      <textarea id="bug-message" placeholder="What happened? What did you expect to happen? Include any steps to reproduce it." required></textarea>
+      <div class="char-count" id="bug-counter">0 / 500 words</div>
+    </div>
+
+    <button type="submit">Submit Bug Report</button>
+  </form>
+</div>
+
+<script>
+const SUPPORT_EMAIL = 'contact@clariqoapp.com';
+
+function switchTab(type){
+  const contactTab = document.querySelectorAll('.tab')[0];
+  const bugTab = document.querySelectorAll('.tab')[1];
+  const contactForm = document.getElementById('contact-form');
+  const bugForm = document.getElementById('bug-form');
+
+  if(type === 'contact'){
+    contactTab.classList.add('active');
+    bugTab.classList.remove('active');
+    contactForm.classList.remove('hidden');
+    bugForm.classList.add('hidden');
+  } else {
+    bugTab.classList.add('active');
+    contactTab.classList.remove('active');
+    bugForm.classList.remove('hidden');
+    contactForm.classList.add('hidden');
+  }
+}
+
+function handleWordLimit(textarea, counter){
+  textarea.addEventListener('input', () => {
+    const words = textarea.value.trim().split(/\s+/).filter(Boolean);
+    if(words.length > 500){
+      textarea.value = words.slice(0,500).join(' ');
+    }
+    const finalWords = textarea.value.trim().split(/\s+/).filter(Boolean);
+    counter.textContent = `${finalWords[0] ? finalWords.length : 0} / 500 words`;
+  });
+}
+
+function submitViaMailto(email, reason, message, prefix){
+  const subject = `${prefix}: ${reason}`;
+  const body = `From: ${email}\n\nReason: ${reason}\n\nMessage:\n${message}`;
+  const mailto = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+}
+
+handleWordLimit(document.getElementById('contact-message'), document.getElementById('contact-counter'));
+handleWordLimit(document.getElementById('bug-message'), document.getElementById('bug-counter'));
+
+document.getElementById('contact-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  const email = document.getElementById('contact-email').value.trim();
+  const reason = document.getElementById('contact-reason').value;
+  const message = document.getElementById('contact-message').value.trim();
+  submitViaMailto(email, reason, message, 'Contact');
+});
+
+document.getElementById('bug-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  const email = document.getElementById('bug-email').value.trim();
+  const reason = document.getElementById('bug-reason').value;
+  const message = document.getElementById('bug-message').value.trim();
+  submitViaMailto(email, reason, message, 'Bug Report');
+});
+</script>
+
+</body>
+</html>

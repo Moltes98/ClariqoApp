@@ -18,16 +18,7 @@
 	<link rel="icon" type="image/x-icon" href="assets/ClariqoIcon_Sized.ico">
 
   <style>
-  /* Password access script, remove before release! */
-  #password-gate {
-  position: fixed;
-  inset: 0;
-  background: #0f1117;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
+
 
 .gate-box {
   background: #191d27;
@@ -187,6 +178,21 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
       transition: background var(--transition);
     }
+	
+.nav__contact {
+  color: var(--budgie-text) !important;
+  border: 1px solid var(--budgie-border);
+  padding: 8px 18px;
+  border-radius: 8px;
+}
+
+.nav__contact:hover {
+  border-color: var(--budgie-muted);
+}
+
+.nav__contact:hover {
+  background: rgba(37, 99, 235, 0.2);
+}
 
     .nav__logo {
       display: flex;
@@ -1003,12 +1009,6 @@
     .comparison td.cross { opacity: 0.35; }
     .comparison tr:hover td { background: rgba(255,255,255,0.02); }
 
-    .comparison-wrap {
-      width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
     /* ============================================================
        ROADMAP / COMING SOON (Clariqo Business alpha callout)
     ============================================================ */
@@ -1173,7 +1173,7 @@
     }
 
     body.is-mobile .comparison {
-      min-width: 760px;
+      min-width: 560px;
     }
 
     @media (max-width: 1024px) {
@@ -1237,11 +1237,35 @@
       }
 
       .mockup-window {
-        width: min(100%, 480px);
+        width: 100%;
       }
 
       .mockup-body {
-        height: 280px;
+        height: auto;
+        min-height: 250px;
+      }
+
+      .mockup-sidebar {
+        width: 104px;
+        padding: 12px 8px;
+      }
+
+      .mockup-nav-item {
+        padding: 7px 8px;
+        font-size: 10px;
+        gap: 5px;
+      }
+
+      .mockup-main {
+        padding: 12px;
+      }
+
+      .mockup-stat-row {
+        flex-direction: column;
+      }
+
+      .mockup-chart {
+        height: 48px;
       }
 
       .trust-strip {
@@ -1277,9 +1301,9 @@
         margin-left: auto;
       }
 
-      .comparison {
-        width: 760px;
-        min-width: 760px;
+      .comparison th:not(:first-child):not(:nth-child(2)),
+      .comparison td:not(:first-child):not(:nth-child(2)) {
+        display: none;
       }
 
       .footer {
@@ -1335,71 +1359,8 @@
       }
     }
 
-    @media (max-width: 768px) {
-      .nav__logo img {
-        width: 132px !important;
-        height: auto !important;
-      }
-
-      .nav__logo {
-        max-width: 100%;
-      }
-
-      .hero__eyebrow,
-      .made-in-britain {
-        max-width: 100%;
-        text-align: center;
-      }
-
-      .section-logo img {
-        height: 64px !important;
-      }
-
-      .pricing-card__price {
-        font-size: 34px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .container {
-        padding: 0 14px;
-      }
-
-      .nav {
-        padding: 10px 14px;
-      }
-
-      .nav__logo img {
-        width: 118px !important;
-      }
-
-      .hero {
-        padding-top: 92px;
-      }
-
-      .hero__mockups {
-        margin-top: 28px;
-      }
-
-      .mockup-window {
-        width: min(100%, 420px);
-        border-radius: 12px;
-      }
-
-      .trust-strip__items {
-        gap: 16px;
-      }
-
-      .pill {
-        font-size: 11px;
-        padding: 6px 12px;
-      }
-    }
-
-
   </style>
 </head>
-/* Password access script, remove before release! */
 
 
 <body>
@@ -1416,6 +1377,7 @@
       <li><a href="#budgie">Features</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#compare">Why Clariqo?</a></li>
+	  <li><a href="assets/contact.html" class="nav__contact">Contact</a></li>
       <li><a href="assets/clariqofree.zip" download="clariqofree" class="nav__cta">Download Free</a></li>
     </ul>
   </nav>
@@ -1815,7 +1777,7 @@
         </p>
       </div>
 
-      <div class="fade-up comparison-wrap">
+      <div style="overflow-x:auto" class="fade-up">
         <table class="comparison">
           <thead>
             <tr>
@@ -1928,7 +1890,7 @@
       <a href="#budgie">Features</a>
       <a href="#pricing">Pricing</a>
       <a href="#compare">Why Clariqo?</a>
-      <a href="#">Support</a>
+      <a href="assets/contact.html">Support</a>
     </div>
 
     <div>© <span id="year"></span> Clariqo & ClariqoApp. All rights reserved.</div>
