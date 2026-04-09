@@ -1282,14 +1282,6 @@
     margin-top: 16px !important;
   }
 
-      .hero__mockups .mockup-window {
-    width: 480px !important;          /* keep desktop proportions */
-    max-width: none !important;
-    transform: scale(0.52) !important; /* make it much smaller on phones */
-    transform-origin: top center !important;
-    animation: none !important;
-    margin: 0 auto -130px auto !important; /* pulls layout back up after scaling */
-  }
 
       .mockup-body {
         height: auto;
@@ -1545,6 +1537,138 @@
     width:16px;
     height:16px;
   }
+  @media (max-width: 768px) {
+  .hero {
+    overflow: hidden;
+  }
+
+  .hero__mockups {
+    margin-top: 28px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .hero__mockups .mockup-window {
+    width: 300px !important;
+    max-width: 300px !important;
+    margin: 0 auto !important;
+    animation: none !important;
+  }
+
+  .hero__mockups .mockup-titlebar {
+    padding: 7px 9px !important;
+  }
+
+  .hero__mockups .mockup-titlebar-label {
+    font-size: 10px !important;
+  }
+
+  .hero__mockups .mockup-body {
+    height: 175px !important;
+    min-height: 175px !important;
+  }
+
+  .hero__mockups .mockup-sidebar {
+    width: 108px !important;
+    padding: 8px 7px !important;
+    gap: 7px !important;
+  }
+
+  .hero__mockups .mockup-brand-box {
+    min-height: 38px !important;
+    font-size: 10px !important;
+    border-radius: 8px !important;
+  }
+
+  .hero__mockups .mockup-brand-box span {
+    font-size: 7px !important;
+    margin-top: 2px !important;
+  }
+
+  .hero__mockups .mockup-period-card {
+    padding: 7px 8px !important;
+    border-radius: 8px !important;
+  }
+
+  .hero__mockups .mockup-period-label,
+  .hero__mockups .mockup-sidebar-heading,
+  .hero__mockups .mockup-stat-label {
+    font-size: 7px !important;
+    margin-bottom: 3px !important;
+  }
+
+  .hero__mockups .mockup-period-value {
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero__mockups .mockup-mini-stat {
+    padding: 5px 6px !important;
+    font-size: 8px !important;
+  }
+
+  .hero__mockups .mockup-mini-stat strong {
+    font-size: 8px !important;
+  }
+
+  .hero__mockups .mockup-nav-item {
+    padding: 5px 6px !important;
+    font-size: 8px !important;
+    gap: 4px !important;
+  }
+
+  .hero__mockups .mockup-main {
+    padding: 10px !important;
+  }
+
+  .hero__mockups .mockup-stat-row {
+    gap: 6px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .hero__mockups .mockup-stat {
+    padding: 7px !important;
+    border-radius: 7px !important;
+  }
+
+  .hero__mockups .mockup-stat-value {
+    font-size: 11px !important;
+  }
+
+  .hero__mockups .mockup-bar {
+    height: 4px !important;
+    margin-top: 4px !important;
+  }
+
+  .hero__mockups .mockup-chart {
+    height: 36px !important;
+    gap: 4px !important;
+    margin-top: 6px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__mockups .mockup-window {
+    width: 270px !important;
+    max-width: 270px !important;
+  }
+
+  .hero__mockups .mockup-body {
+    height: 160px !important;
+    min-height: 160px !important;
+  }
+
+  .hero__mockups .mockup-sidebar {
+    width: 98px !important;
+  }
+
+  .hero__mockups .mockup-stat-value {
+    font-size: 10px !important;
+  }
+}
   </style>
 </head>
 
