@@ -1747,6 +1747,58 @@
   opacity: 0.85;
   margin-bottom: 12px;
 }
+.cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 900px;
+  z-index: 9999;
+
+  background: rgba(25, 29, 39, 0.95);
+  border: 1px solid var(--budgie-border);
+  border-radius: 14px;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  padding: 16px 20px;
+}
+
+.cookie-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cookie-text {
+  font-size: 13px;
+  color: var(--budgie-muted);
+  max-width: 600px;
+}
+
+.cookie-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cookie-link {
+  font-size: 13px;
+  color: var(--budgie-text);
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+.cookie-link:hover {
+  opacity: 1;
+}
+
+
 
 </style>
 </head>
@@ -2400,7 +2452,10 @@
     }
 
     window.addEventListener('resize', updateDeviceType, { passive: true });
+	
+	
   });
+  
 </script>
 
 <div class="floating-socials">
@@ -2422,6 +2477,36 @@
     </svg>
   </a>
 </div>
+<div id="cookie-banner" class="cookie-banner">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      We use cookies to improve your experience and analyse traffic. By using Clariqo, you agree to our use of cookies.
+    </div>
+    <div class="cookie-actions">
+      <button id="cookie-accept" class="btn btn--green">Accept</button>
+      <a href="privacy.html" class="cookie-link">Learn more</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+
+  if (!banner || !acceptBtn) return;
+
+  if (localStorage.getItem('cookiesAccepted') === 'true') {
+    banner.style.display = 'none';
+    return;
+  }
+
+  acceptBtn.addEventListener('click', function () {
+    localStorage.setItem('cookiesAccepted', 'true');
+    banner.style.display = 'none';
+  });
+})();
+</script>
 
 </body>
 
