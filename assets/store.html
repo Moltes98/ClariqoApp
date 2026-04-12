@@ -315,6 +315,50 @@
       font-size:14px;
     }
 
+    .offer-title{
+      color:orange;
+      font-size:32px;
+      line-height:1.1;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    .regional-price{
+      display:flex;
+      align-items:flex-end;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+
+    .regional-price__old{
+      color:var(--budgie-muted);
+      font-size:22px;
+      line-height:1;
+      opacity:0.82;
+      text-decoration:line-through;
+      text-decoration-thickness:2px;
+      text-decoration-color:rgba(255, 90, 90, 0.95);
+      text-underline-offset:0.15em;
+    }
+
+    .regional-price__new{
+      color:var(--budgie-green);
+      font-family:var(--font-display);
+      font-size:48px;
+      line-height:1;
+      font-weight:700;
+      letter-spacing:-0.02em;
+    }
+
+    .regional-price__note{
+      font-size:12px;
+      line-height:1.5;
+      color:var(--muted);
+      opacity:0.9;
+      margin-top:8px;
+    }
+
     .store-list{
       display:grid;
       gap:10px;
@@ -578,14 +622,18 @@
         </div>
 
         <div class="store-panel">
-          <div class="price-block">
+          
+<div class="price-block">
             <div class="price-block__eyebrow">Premium Access</div>
-            <div class="pricing-card__name"><h1 style="color:orange;">SPECIAL OFFER!*</h1></div>
-            <div class="pricing-card__price" style="color:var(--budgie-muted"><s>£34.99</s> <h1 style="color:var(--budgie-green);">£19.99</div>
-			<div class="price-block__sub"style="color:orange;"><i>*Limited time special offer. Offer ends at the end of the promotional period.</i></div>
-			<br>
+            <div class="offer-title">SPECIAL OFFER!*</div>
+            <div class="regional-price" aria-label="Premium pricing">
+              <span class="regional-price__old" data-price-gbp="34.99">£34.99</span>
+              <span class="regional-price__new" data-price-gbp="19.99">£19.99</span>
+            </div>
+            <div class="price-block__sub" style="color:orange;"><i>*Limited time special offer. Offer ends at the end of the promotional period.</i></div>
+            <div class="regional-price__note">Displayed price is estimated by region. Final currency and taxes are shown at checkout.</div>
+            <br>
             <div class="price-block__sub">One-time upgrade for the full premium feature set.</div>
-			
           </div>
 
           <ul class="store-list">
@@ -736,6 +784,69 @@
 
     <div>© <span id="year"></span> Clariqo & ClariqoApp. All rights reserved.</div>
   </footer>
+
+
+  <script>
+    (function () {
+      const PRICE_RATES = {
+        GBP: 1,
+        USD: 1.27,
+        EUR: 1.17
+      };
+
+      const EURO_REGIONS = [
+        'AT','BE','CY','DE','EE','ES','FI','FR','GR','HR',
+        'IE','IT','LT','LU','LV','MT','NL','PT','SI','SK'
+      ];
+
+      function getCurrency() {
+        const locale = (navigator.language || '').toUpperCase();
+        const tz = ((Intl.DateTimeFormat().resolvedOptions() || {}).timeZone || '').toUpperCase();
+
+        if (tz === 'EUROPE/LONDON' || locale.includes('EN-GB') || locale.endsWith('-GB')) {
+          return 'GBP';
+        }
+
+        if (tz.startsWith('AMERICA/') || locale.includes('EN-US') || locale.endsWith('-US')) {
+          return 'USD';
+        }
+
+        for (const code of EURO_REGIONS) {
+          if (locale.endsWith('-' + code)) {
+            return 'EUR';
+          }
+        }
+
+        if (tz.startsWith('EUROPE/')) {
+          return 'EUR';
+        }
+
+        return 'GBP';
+      }
+
+      function formatPrice(amount, currency) {
+        const symbols = { GBP: '£', USD: '$', EUR: '€' };
+        return symbols[currency] + amount.toFixed(2);
+      }
+
+      function updateRegionalPrices() {
+        const currency = getCurrency();
+        const rate = PRICE_RATES[currency] || 1;
+
+        document.querySelectorAll('[data-price-gbp]').forEach((el) => {
+          const gbpValue = parseFloat(el.getAttribute('data-price-gbp'));
+          if (!Number.isFinite(gbpValue)) return;
+          el.textContent = formatPrice(gbpValue * rate, currency);
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateRegionalPrices);
+      } else {
+        updateRegionalPrices();
+      }
+    })();
+  </script>
 
   <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 </body>

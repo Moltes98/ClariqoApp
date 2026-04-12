@@ -956,12 +956,50 @@
     .pricing-card--light .pricing-card__name { color: var(--biz-muted); }
 
     .pricing-card__price {
-      font-family: var(--font-display);
-      font-size: 40px;
-      font-weight: 700;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 8px 0 10px;
+  font-family: var(--font-display);
+  line-height: 1;
+}
+
+.price-amount {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.price-amount--old {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--budgie-muted);
+  opacity: 0.72;
+  text-decoration-line: line-through !important;
+  text-decoration-thickness: 2px !important;
+  text-decoration-color: rgba(255, 90, 90, 0.95) !important;
+  text-decoration-skip-ink: none;
+}
+
+.price-amount--current {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--budgie-green);
+  letter-spacing: -0.02em;
+}
+
+.free-label {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--budgie-green);
+  text-shadow: 0 0 24px rgba(44, 226, 173, 0.2);
+  margin: 10px 0 14px;
+}
 
     .pricing-card__period {
       font-size: 13px;
@@ -1701,7 +1739,16 @@
     font-size: 10px !important;
   }
 }
-  </style>
+  
+.pricing-price-note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--budgie-muted);
+  opacity: 0.85;
+  margin-bottom: 12px;
+}
+
+</style>
 </head>
 
 
@@ -1749,6 +1796,10 @@
         <div class="hero__actions fade-up">
           <a href="assets/clariqofree.zip" download="clariqofree" class="btn btn--green">
             Download Free
+          </a>
+		 
+          <a href="assets/store.html" class="btn nav__cta--premium">
+            Get Premium
           </a>
           <a href="#how-it-works" class="btn btn--ghost">
             See how it works →
@@ -2075,42 +2126,44 @@
 
         <div class="pricing-grid">
           <div class="pricing-card pricing-card--dark fade-up">
-            <div class="pricing-card__name">Free</div>
-            <div class="pricing-card__price">£0</div>
+            <div class="pricing-card__name"></div>
+            <div class="pricing-card__name">FREE</div>
             <div class="pricing-card__period">Get the core clarity for free</div>
             <ul class="pricing-card__features">
               <li>Real spendable balance</li>
               <li>Recurring expense tracking</li>
               <li>Manual expense logging</li>
               <li>Savings pots</li>
-			  <li class="no">Joint Budget Tracking</li>
+              <li class="no">Joint Budget Tracking</li>
               <li class="no">Mortgage Tracking</li>
               <li class="no">PDF export</li>
-			  <li class="no">Bill reminders</li>
+              <li class="no">Bill reminders</li>
               <li class="no">Full card tracking</li>
-			  <li class="no">Up to 2 profiles</li>
+              <li class="no">Up to 2 profiles</li>
             </ul>
             <a href="assets/clariqofree.zip" download="clariqofree" class="btn btn--ghost" style="width:100%;justify-content:center">Download Free</a>
           </div>
 
           <div class="pricing-card pricing-card--dark featured fade-up">
             <div class="pricing-card__badge">PREMIUM</div>
-            <div class="pricing-card__name"><h2 style="color:var(--budgie-green);">Premium</h2></div>
-			<div class="pricing-card__name"><h1 style="color:orange;">SPECIAL OFFER!</h1></div>
-            <div class="pricing-card__price" style="color:var(--budgie-muted"><s>£34.99</s> <h2 style="color:var(--budgie-green);">£19.99</h2></div>
-			
-            <div class="pricing-card__period">Lifetime licence · no subscription ever</div>
+            <div class="pricing-card__name" style="color:var(--budgie-green)">Premium</div>
+            <div class="pricing-card__name" style="color:orange;margin-bottom:10px">Special Offer</div>
+            <div class="pricing-card__price">
+              <span class="price-amount price-amount--old" data-price-gbp="34.99">£34.99</span>
+              <span class="price-amount price-amount--current" data-price-gbp="19.99">£19.99</span>
+            </div>
+            <div class="pricing-price-note">Displayed price is estimated by region. Final currency and taxes are shown at checkout.</div>
+            <div class="pricing-card__period">Lifetime licence · one-time payment · no subscription ever</div>
             <ul class="pricing-card__features">
               <li>Everything in Free</li>
               <li>Full credit card tracking</li>
-			  <li>Joint Budget Tracking</li>
+              <li>Joint Budget Tracking</li>
               <li>Mortgage Tracking</li>
-			  <li>Up to 2 profiles</li>
+              <li>Up to 2 profiles</li>
               <li>PDF export</li>
               <li>Bill reminders</li>
               <li>Investment tracking</li>
               <li>Auto-updates via GitHub</li>
-			  
             </ul>
             <a href="assets/store.html" class="btn btn--green nav__cta--premium" style="width:100%;justify-content:center">Get Premium</a>
           </div>
@@ -2255,61 +2308,16 @@
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
 
-    const fadeEls = document.querySelectorAll('.fade-up');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px'
-      }
-    );
-
-    fadeEls.forEach(el => observer.observe(el));
-
-    const nav = document.getElementById('nav');
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 60) {
-        nav.style.background = 'rgba(15, 17, 23, 0.95)';
-      } else {
-        nav.style.background = 'rgba(15, 17, 23, 0.7)';
-      }
-    }, { passive: true });
-
-    const bars = document.querySelectorAll('.budget-row__fill, .mockup-bar-fill');
-
-    const barObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
-            const targetWidth = el.style.width;
-            el.style.transition = 'none';
-            el.style.width = '0%';
-            requestAnimationFrame(() => {
-              requestAnimationFrame(() => {
-                el.style.transition = 'width 1s cubic-bezier(0.4, 0, 0.2, 1)';
-                el.style.width = targetWidth;
-              });
-            });
-            barObserver.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    bars.forEach(bar => barObserver.observe(bar));
+    document.querySelectorAll('.fade-up').forEach((element) => observer.observe(element));
 
     function updateDeviceType() {
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
@@ -2317,9 +2325,83 @@
       document.body.classList.toggle('is-desktop', !isMobile);
     }
 
+    function getPricingRegion() {
+      const localeList = Array.isArray(navigator.languages) && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language || ''];
+
+      const normalizedLocales = localeList.map((value) => String(value).toLowerCase());
+      const timeZone = String(Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+
+      const hasCountrySignal = (countryCode) => {
+        const code = String(countryCode).toLowerCase();
+        return normalizedLocales.some((locale) => locale === code || locale.endsWith(`-${code}`));
+      };
+
+      if (timeZone === 'Europe/London' || hasCountrySignal('gb')) {
+        return { currency: 'GBP', locale: 'en-GB', rate: 1 };
+      }
+
+      if (timeZone.startsWith('America/') || hasCountrySignal('us')) {
+        return { currency: 'USD', locale: 'en-US', rate: 1.27 };
+      }
+
+      const euroCountries = ['at', 'be', 'cy', 'de', 'ee', 'es', 'fi', 'fr', 'gr', 'hr', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pt', 'si', 'sk'];
+      const euroTimeZones = [
+        'Europe/Amsterdam', 'Europe/Athens', 'Europe/Berlin', 'Europe/Brussels', 'Europe/Dublin',
+        'Europe/Helsinki', 'Europe/Lisbon', 'Europe/Luxembourg', 'Europe/Madrid', 'Europe/Malta',
+        'Europe/Paris', 'Europe/Riga', 'Europe/Rome', 'Europe/Vienna', 'Europe/Vilnius'
+      ];
+
+      if (euroTimeZones.includes(timeZone) || euroCountries.some((code) => hasCountrySignal(code))) {
+        return { currency: 'EUR', locale: 'de-DE', rate: 1.17 };
+      }
+
+      return { currency: 'GBP', locale: 'en-GB', rate: 1 };
+    }
+
+    function formatPriceFromGBP(gbpValue, region) {
+      const numericValue = Number(gbpValue);
+      if (!Number.isFinite(numericValue)) {
+        return '';
+      }
+
+      const convertedValue = numericValue * region.rate;
+
+      if (region.currency === 'EUR') {
+        return '€' + convertedValue.toFixed(2);
+      }
+
+      return new Intl.NumberFormat(region.locale, {
+        style: 'currency',
+        currency: region.currency,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(convertedValue);
+    }
+
+    function updateAllRegionalPrices() {
+      const region = getPricingRegion();
+
+      document.querySelectorAll('.price-amount[data-price-gbp]').forEach((element) => {
+        const formattedPrice = formatPriceFromGBP(element.dataset.priceGbp, region);
+        if (formattedPrice) {
+          element.textContent = formattedPrice;
+        }
+      });
+    }
+
+    updateAllRegionalPrices();
     updateDeviceType();
+
+    const yearElement = document.getElementById('year');
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
+
     window.addEventListener('resize', updateDeviceType, { passive: true });
-  </script>
+  });
+</script>
 
 <div class="floating-socials">
   <a href="https://x.com/clariqoapp" target="_blank" aria-label="X">
