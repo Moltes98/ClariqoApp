@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Clariqo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href="../assets/ClariqoIcon_Sized.ico">
+
+  <style>
+
+    /* ============================================================
+       VARIABLES — kept identical to index.html so the pages match.
+       Edit colours here if you retheme index.html.
+    ============================================================ */
+    :root {
+      --dark:         #080c12;
+      --panel:        #0e1520;
+      --border:       #1e2a3a;
+      --border-soft:  rgba(255,255,255,0.06);
+      --green:        #2ce2ad;
+      --green-dim:    rgba(44,226,173,0.12);
+      --green-glow:   rgba(44,226,173,0.25);
+      --blue:         #2d94da;
+      --blue-dim:     rgba(45,148,218,0.12);
+      --text:         #e8f0fc;
+      --text-muted:   #7a8fa8;
+      --text-soft:    #b0c4d8;
+      --gold:         #ffb752;
+      --radius-sm:    8px;
+      --radius-md:    14px;
+      --radius-lg:    22px;
+      --transition:   0.26s cubic-bezier(0.4,0,0.2,1);
+      --font-heading: 'Outfit', system-ui, sans-serif;
+      --font-body:    'Manrope', system-ui, sans-serif;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      /* Same continuous gradient as index.html */
+      background:
+        radial-gradient(ellipse 80% 50% at 10% 0%,  rgba(44,226,173,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 90% 20%, rgba(45,148,218,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 60% at 50% 60%, rgba(37,99,235,0.05)  0%, transparent 60%),
+        radial-gradient(ellipse 70% 40% at 20% 90%, rgba(44,226,173,0.04) 0%, transparent 60%),
+        #080c12;
+      background-attachment: fixed;
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container {
+      max-width: 860px; /* narrower than index — keeps FAQ readable */
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================================================
+       NAVIGATION — matches index.html exactly
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8,12,18,0.75);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-soft);
+      transition: background 0.26s ease;
+    }
+    .nav.scrolled { background: rgba(8,12,18,0.95); }
+
+    .nav__logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      list-style: none;
+    }
+    .nav__links a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .nav__links a:hover { color: var(--text); }
+    .nav__links a.active { color: var(--green); }
+
+    .nav__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px !important;
+      color: var(--text-muted) !important;
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .nav__back:hover {
+      border-color: var(--green);
+      color: var(--text) !important;
+    }
+
+    .nav__cta {
+      background: var(--green);
+      color: var(--dark) !important;
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-heading);
+      font-weight: 700 !important;
+      font-size: 13px !important;
+    }
+    .nav__cta:hover { opacity: 0.88; }
+
+    /* ============================================================
+       HERO / PAGE HEADER
+    ============================================================ */
+    .page-hero {
+      padding: 120px 0 64px;
+      text-align: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      background: var(--green-dim);
+      color: var(--green);
+      border: 1px solid rgba(44,226,173,0.25);
+      margin-bottom: 20px;
+    }
+
+    .page-hero__title {
+      font-family: var(--font-heading);
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+      margin-bottom: 18px;
+      color: var(--text);
+    }
+    .page-hero__title .accent { color: var(--green); }
+
+    .page-hero__sub {
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: var(--text-soft);
+      max-width: 540px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    /* ── Search box ── */
+    .faq-search-wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .faq-search {
+      width: 100%;
+      padding: 14px 48px 14px 18px;
+      background: rgba(14,21,32,0.8);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .faq-search::placeholder { color: var(--text-muted); }
+    .faq-search:focus {
+      border-color: rgba(44,226,173,0.4);
+      box-shadow: 0 0 0 3px rgba(44,226,173,0.08);
+    }
+    .faq-search-icon {
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      font-size: 16px;
+    }
+
+    /* No results message */
+    .faq-no-results {
+      display: none;
+      text-align: center;
+      padding: 48px 0;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 15px;
+    }
+
+    /* ============================================================
+       CATEGORY TABS
+       Filter the FAQ by category. JS toggles .active.
+    ============================================================ */
+    .faq-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 40px 0 48px;
+    }
+    .faq-tab {
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .faq-tab:hover {
+      border-color: var(--green);
+      color: var(--text);
+    }
+    .faq-tab.active {
+      background: var(--green-dim);
+      border-color: rgba(44,226,173,0.3);
+      color: var(--green);
+    }
+
+    /* ============================================================
+       FAQ GROUPS & ACCORDION ITEMS
+    ============================================================ */
+    .faq-section {
+      margin-bottom: 56px;
+    }
+
+    .faq-section__label {
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      padding-left: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .faq-section__label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Accordion item ── */
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: rgba(14,21,32,0.55);
+      backdrop-filter: blur(6px);
+      margin-bottom: 8px;
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .faq-item:hover { border-color: rgba(44,226,173,0.2); }
+    .faq-item.open  { border-color: rgba(44,226,173,0.3); }
+
+    /* The clickable question row */
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .faq-q__text {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    /* The +/− chevron */
+    .faq-q__icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1;
+      transition: all var(--transition);
+      background: rgba(255,255,255,0.02);
+    }
+    .faq-item.open .faq-q__icon {
+      border-color: var(--green);
+      color: var(--green);
+      background: var(--green-dim);
+      transform: rotate(45deg); /* + rotates to × */
+    }
+
+    /* The answer panel — height animates via JS max-height trick */
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1),
+                  padding 0.28s ease;
+      padding: 0 24px;
+    }
+    .faq-item.open .faq-a {
+      max-height: 600px; /* large enough to fit any answer */
+      padding-bottom: 22px;
+    }
+
+    .faq-a__inner {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-soft);
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    /* Rich text inside answers */
+    .faq-a__inner p  { margin-bottom: 10px; }
+    .faq-a__inner p:last-child { margin-bottom: 0; }
+    .faq-a__inner strong { color: var(--text); font-weight: 600; }
+    .faq-a__inner em { color: var(--green); font-style: normal; font-weight: 600; }
+    .faq-a__inner ul {
+      list-style: none;
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .faq-a__inner ul li {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .faq-a__inner ul li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Link inside an answer */
+    .faq-link {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: opacity var(--transition);
+    }
+    .faq-link:hover { opacity: 0.8; }
+
+    /* ============================================================
+       STILL HAVE QUESTIONS? CTA
+    ============================================================ */
+    .faq-cta {
+      margin: 16px 0 80px;
+      text-align: center;
+      padding: 48px 32px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: rgba(14,21,32,0.55);
+      backdrop-filter: blur(8px);
+    }
+    .faq-cta h3 {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .faq-cta p {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition);
+      border: none;
+    }
+    .btn--green {
+      background: var(--green);
+      color: var(--dark);
+    }
+    .btn--green:hover {
+      background: #4eeabb;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--green-glow);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1px solid var(--border);
+    }
+    .btn--ghost:hover {
+      border-color: var(--text-muted);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       FOOTER — matches index.html
+    ============================================================ */
+    .footer {
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-body);
+    }
+    .footer__logo {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .footer__tagline { margin-bottom: 22px; color: var(--text-soft); }
+    .footer__links {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+    .footer__links a { color: var(--text-muted); transition: color var(--transition); }
+    .footer__links a:hover { color: var(--text); }
+
+    /* ============================================================
+       FADE-UP ANIMATIONS
+    ============================================================ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 768px) {
+      .container   { padding: 0 16px; }
+      .nav         { padding: 0 16px; }
+      .nav__links  { display: none; }
+      .page-hero   { padding: 96px 0 48px; }
+      .page-hero__title { font-size: clamp(28px, 8vw, 40px); }
+      .page-hero__sub   { font-size: 15px; }
+      .faq-tabs    { gap: 6px; }
+      .faq-tab     { font-size: 12px; padding: 7px 14px; }
+      .faq-q       { padding: 16px 18px; }
+      .faq-q__text { font-size: 14px; }
+      .faq-a       { padding: 0 18px; }
+      .faq-cta     { padding: 32px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .page-hero__title { font-size: clamp(26px, 9vw, 34px); }
+      .faq-tabs { justify-content: flex-start; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav class="nav" id="nav">
+    <div class="nav__logo">
+      <img src="https://i.postimg.cc/zfNKvjGN/Clariqo-Main-Logo.png"
+           style="width:120px;height:auto;object-fit:contain;" alt="Clariqo">
+    </div>
+    <ul class="nav__links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#pricing">Pricing</a></li>
+      <li><a href="../index.html#privacy">Privacy</a></li>
+      <li><a href="faq.html" class="active">FAQ</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="../index.html" class="nav__back">← Back to main site</a></li>
+      <li><a href="store.html" class="nav__cta">Get Premium</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ============================================================
+       PAGE HERO
+  ============================================================ -->
+  <section class="page-hero">
+    <div class="container" style="text-align:center;">
+      <div class="pill fade-up">💬 FAQ</div>
+      <h1 class="page-hero__title fade-up">
+        Questions, <span class="accent">answered.</span>
+      </h1>
+      <p class="page-hero__sub fade-up">
+        Everything you actually want to know before downloading — honestly answered,
+        no marketing spin.
+      </p>
+
+      <!-- Search box — JS filters items in real time -->
+      <div class="faq-search-wrap fade-up">
+        <input
+          class="faq-search"
+          id="faqSearch"
+          type="text"
+          placeholder="Search questions…"
+          aria-label="Search FAQ"
+        />
+        <span class="faq-search-icon">🔍</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CATEGORY TABS
+       data-cat must match the data-cat on each .faq-section.
+       "All" shows everything.
+  ============================================================ -->
+  <div class="container">
+    <div class="faq-tabs" id="faqTabs">
+      <button class="faq-tab active" data-cat="all">All</button>
+      <button class="faq-tab" data-cat="general">General</button>
+      <button class="faq-tab" data-cat="privacy">Privacy & Data</button>
+      <button class="faq-tab" data-cat="features">Features</button>
+      <button class="faq-tab" data-cat="pricing">Pricing & Licences</button>
+      <button class="faq-tab" data-cat="technical">Technical</button>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       FAQ CONTENT
+       To add a new question: copy a .faq-item block, change the
+       question text in .faq-q__text and the answer in .faq-a__inner.
+       Make sure the parent .faq-section has the right data-cat.
+  ============================================================ -->
+  <main class="container" id="faqContent">
+
+    <!-- ── GENERAL ──────────────────────────────────────────── -->
+    <section class="faq-section fade-up" data-cat="general">
+      <div class="faq-section__label">General</div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">What actually is Clariqo?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Clariqo is a Windows desktop app that shows you your <strong>real safe-to-spend balance</strong> — not just your bank balance.</p>
+            <p>Your bank balance tells you what's in your account. It doesn't know about the rent coming out Friday, the Netflix renewal next week, or the credit card balance you haven't cleared. Clariqo does. You enter your recurring bills, subscriptions, and card spending once, and it subtracts them so you always know what you can <em>actually</em> afford to spend right now.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Who is Clariqo for?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Clariqo is for anyone who's ever thought "I've got money in my account" — spent some — then got caught out when the direct debits hit. That's most people.</p>
+            <p>It works best for:</p>
+            <ul>
+              <li>People who get paid on a cycle (weekly, fortnightly, monthly)</li>
+              <li>Couples managing shared and personal money separately</li>
+              <li>Anyone who uses credit cards and wants to stay aware of what they've already spent</li>
+              <li>People who want more clarity than their banking app gives without the complexity of full accounting software</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Is this a subscription service?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p><em>No.</em> Clariqo Free is completely free with no time limit. Clariqo Premium is a single one-time payment — you pay once and the licence is yours.</p>
+            <p>There is no monthly fee, no annual renewal, and nothing that auto-charges your card. You buy it, you own it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">What's the difference between Free and Premium?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>The Free tier gives you the core clarity: your real spendable balance, recurring expense tracking, manual expense logging, and savings pots. That's genuinely useful on its own.</p>
+            <p>Premium unlocks the more advanced tools:</p>
+            <ul>
+              <li>Full credit card tracking with balance and repayment visibility</li>
+              <li>Joint budget tracking (shared money alongside personal money)</li>
+              <li>Mortgage tracking</li>
+              <li>Up to 2 user profiles</li>
+              <li>PDF export for period summaries</li>
+              <li>Bill reminders</li>
+              <li>Investment tracking</li>
+              <li>Automatic updates via GitHub</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Does Clariqo connect to my bank?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p><em>No</em> — and that's intentional. Clariqo does not connect to your bank, does not require your banking credentials, and does not use open banking APIs.</p>
+            <p>You enter your income, recurring costs, and spending manually. This means:</p>
+            <ul>
+              <li>No broken connections when your bank changes its API</li>
+              <li>No risk from third-party data breaches</li>
+              <li>No permissions granted to any external service</li>
+              <li>Your banking credentials never leave your own devices</li>
+            </ul>
+            <p>The slight trade-off is that you log spending yourself. Most users find this takes under a minute a day and actually helps them stay more aware of where money is going.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ── PRIVACY & DATA ────────────────────────────────────── -->
+    <section class="faq-section fade-up" data-cat="privacy">
+      <div class="faq-section__label">Privacy & Data</div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Where is my data stored?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p><em>On your computer. Only on your computer.</em></p>
+            <p>Clariqo stores all your financial data locally in files on your Windows machine. Nothing is uploaded, synced, or transmitted anywhere. There is no Clariqo server holding your data. There is no cloud account. If you delete the app, your data stays on your machine — and if you want to remove it completely, you delete the local files.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Can Clariqo see my financial data?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p><em>No. Structurally impossible, not just policy.</em></p>
+            <p>We can't see your data because we deliberately built the app so it never leaves your machine. This isn't a privacy promise we ask you to trust — it's an architectural decision. There's no server to store it on. No database to query. No telemetry reporting back to us. We genuinely do not have access to your financial information.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Do you sell my data to anyone?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p><em>No. We can't — we don't have it.</em></p>
+            <p>Most budgeting apps make money twice: once when you pay them, and again when they sell what they learn about your spending habits to data brokers and advertisers. Clariqo makes money once. You pay (optionally, for Premium). That's the entire transaction.</p>
+            <p>Your spending habits are worth a lot of money to a lot of companies. Clariqo isn't one of them.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Does Clariqo need an internet connection?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>For day-to-day use — <em>no.</em> Clariqo works completely offline. All your data is local so there's nothing to fetch from the internet.</p>
+            <p>The only things that use an internet connection are:</p>
+            <ul>
+              <li><strong>Licence activation</strong> — when you first enter a Premium key, Clariqo checks it against our licence system once. After that, it doesn't need to check again.</li>
+              <li><strong>Auto-updates</strong> — Premium users get automatic update checks via GitHub. You can choose to skip or defer these.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">What happens to my data if I stop using Clariqo?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Nothing happens to it — because it was always yours. Since everything is stored locally, uninstalling Clariqo doesn't delete your data files. You control them. You can keep them, back them up, or delete them yourself whenever you want.</p>
+            <p>There's no account to close, no deletion request to submit, and no data to "export" from a server — because we never held any of it.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ── FEATURES ──────────────────────────────────────────── -->
+    <section class="faq-section fade-up" data-cat="features">
+      <div class="faq-section__label">Features</div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">How does the joint budget feature work?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Joint budgeting lets you separate shared money from your personal money within the same app. You can see both pots clearly — what's in the joint budget, what's in your personal budget, and what's left in each after tracked spending.</p>
+            <p>This is designed for couples or housemates who contribute to shared expenses but still want to keep track of their own money independently. You don't need two separate accounts or installations — it's built into a single profile.</p>
+            <p>Joint budget tracking is a <strong>Premium feature</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">How does the credit card tracking work?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>When you log a variable expense, you can assign it to a specific credit card. Clariqo keeps a running total of what you've put on each card so you can see your real liability — money that's been spent but hasn't left your bank yet.</p>
+            <p>This is the key reason your bank balance lies to you. £800 in your account sounds fine until you remember £300 of that is already on the credit card and due at the end of the month. Clariqo keeps that visible so it doesn't catch you out.</p>
+            <p>Full card tracking is a <strong>Premium feature</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">What are savings pots?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Savings pots let you track named savings goals within Clariqo — for example "Holiday fund", "Emergency pot", or "New laptop". You set a target amount and log contributions to it over time.</p>
+            <p>Clariqo shows your progress toward each goal so you can see how close you are. The savings total is also factored into your overall financial picture so you're not counting saved money as spendable money.</p>
+            <p>Basic savings pots are available on the <strong>Free tier</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Can I export my data?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Premium users can export period summaries as <strong>PDF reports</strong>. These give you a clean, readable snapshot of a budget period — useful if you want a record you can save separately or share.</p>
+            <p>Because your data is stored locally, you also always have direct access to your own files — you're not locked into any format that requires our systems to export.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Does Clariqo support multiple currencies?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Yes — Clariqo supports <strong>GBP, USD, and EUR</strong>. The currency display is set in your preferences. The app is primarily built for a UK audience (GBP is the default) but works for users in other regions using those currencies.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ── PRICING & LICENCES ────────────────────────────────── -->
+    <section class="faq-section fade-up" data-cat="pricing">
+      <div class="faq-section__label">Pricing & Licences</div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">How much does Premium cost?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Clariqo Premium is currently on a <strong>special offer at £19.99</strong> (normally £34.99), as a one-time payment. The displayed price on the store page is estimated by your region — the final currency and any applicable taxes are confirmed at checkout.</p>
+            <p>There is no subscription, no renewal, and no auto-charge. You pay once.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">How do I activate my Premium licence after buying?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>After purchasing, you'll receive a <strong>licence key</strong> by email from Lemon Squeezy (our payment processor). Open Clariqo, navigate to Settings, and enter your key in the activation field. Clariqo will validate it online once and then unlock Premium features permanently on that machine.</p>
+            <p>If you have any issues activating, <a href="contact.html" class="faq-link">contact support</a> with your order number and we'll sort it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Can I use my licence on more than one computer?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Each licence is intended for use on a single machine. If you upgrade your PC or reinstall Windows and need to transfer your licence, <a href="contact.html" class="faq-link">get in touch</a> and we'll transfer it for you manually — no extra charge.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">What payment methods are accepted?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Payments are processed through <strong>Stripe</strong> via <strong>Lemon Squeezy</strong>, which accepts all major credit and debit cards (Visa, Mastercard, Amex) as well as Apple Pay and Google Pay where available.</p>
+            <p>Clariqo does not store, see, or record any payment information. The entire transaction happens on Lemon Squeezy's infrastructure.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">What is your refund policy?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>If you're not happy with Premium within <strong>14 days</strong> of purchase, contact us and we'll refund you. No lengthy process, no questions designed to talk you out of it.</p>
+            <p>We'd rather you get your money back than feel stuck with something that doesn't work for you. <a href="contact.html" class="faq-link">Contact support</a> with your order number to request a refund.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ── TECHNICAL ─────────────────────────────────────────── -->
+    <section class="faq-section fade-up" data-cat="technical">
+      <div class="faq-section__label">Technical</div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">What are the system requirements?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <ul>
+              <li><strong>Operating system:</strong> Windows 10 or Windows 11</li>
+              <li><strong>Disk space:</strong> Under 100MB for the app; your data files are small</li>
+              <li><strong>Internet:</strong> Not required for day-to-day use. Needed once for Premium activation and for auto-updates.</li>
+              <li><strong>macOS / Linux:</strong> Not currently supported. Clariqo is a Windows-native desktop app.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">How do updates work?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Premium users get <strong>automatic updates via GitHub Releases</strong>. When a new version is available, Clariqo will notify you and can update itself in the background with your permission.</p>
+            <p>Free users can check for updates manually by visiting the <a href="https://github.com/Moltes98/ClariqoApp/releases" target="_blank" class="faq-link">GitHub Releases page</a> and downloading the latest installer.</p>
+            <p>Updates never overwrite your data — your local files are always preserved.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">My antivirus is flagging Clariqo — should I be worried?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>This is common for small independent desktop apps that haven't yet gone through Microsoft's code-signing process. It doesn't mean the app is harmful — it means it isn't from a large verified publisher that antivirus databases already trust by default.</p>
+            <p>Clariqo is built in Python and packaged as a Windows executable. The source of the release is our official <a href="https://github.com/Moltes98/ClariqoApp/releases" target="_blank" class="faq-link">GitHub repository</a>. If you download from there, you're getting the genuine release.</p>
+            <p>If you're uncomfortable, you can right-click the installer → Properties → Unblock, or add an exception in your antivirus. If you'd like to verify anything about the build, <a href="contact.html" class="faq-link">contact us</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">Can I back up my Clariqo data?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Yes — and it's straightforward because everything is just local files. Your Clariqo data is stored in your user data folder on Windows. You can copy these files to an external drive, OneDrive, Dropbox, or anywhere else you back up important files.</p>
+            <p>If you're reinstalling Windows or moving to a new machine, just copy your data folder across and Clariqo will pick it up on the new installation. If you need help locating the data files, <a href="contact.html" class="faq-link">get in touch</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q__text">I found a bug — how do I report it?</span>
+          <span class="faq-q__icon">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a__inner">
+            <p>Please use the <a href="contact.html" class="faq-link">contact page</a> and describe what happened, what you expected to happen, and which version of Clariqo you're running (visible in Settings → About). Screenshots are helpful if the bug is visual.</p>
+            <p>We take bug reports seriously and aim to respond within a working day or two. We're a small team, not a corporate support queue.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- No results message — shown by JS when search finds nothing -->
+    <div class="faq-no-results" id="faqNoResults">
+      <p style="font-size:32px;margin-bottom:12px;">🤔</p>
+      <p>No questions match "<span id="searchTerm"></span>".</p>
+      <p style="margin-top:8px;font-size:13px;">Try a different word, or <a href="contact.html" class="faq-link">ask us directly</a>.</p>
+    </div>
+
+
+    <!-- ── STILL HAVE QUESTIONS? ── -->
+    <div class="faq-cta fade-up">
+      <h3>Still have a question?</h3>
+      <p>
+        If it's not answered here, reach out directly. We're a small team and we actually read and reply.
+        No bots, no ticket queues.
+      </p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn--green">Contact us →</a>
+        <a href="store.html" class="btn btn--ghost">Get Premium</a>
+      </div>
+    </div>
+
+  </main>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="footer__logo">
+      <img src="https://i.postimg.cc/SxPTXHzt/Clariqo-ICONnew.png"
+           style="height:30px;vertical-align:middle;margin-right:8px;object-fit:contain;" alt="Clariqo">
+      Clariqo
+    </div>
+    <div class="footer__tagline">Your bank shows your balance. Clariqo shows what you can actually spend.</div>
+    <div class="footer__links">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#pricing">Pricing</a>
+      <a href="../index.html#privacy">Privacy</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div>© <span id="year"></span> Clariqo & ClariqoApp. All rights reserved.</div>
+  </footer>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+       - Nav scroll darkening
+       - Accordion open/close
+       - Category tab filtering
+       - Live search filtering
+  ============================================================ -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // ── Copyright year ───────────────────────────────────────
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Nav darken on scroll ─────────────────────────────────
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // ── Scroll fade-in ───────────────────────────────────────
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const fadeObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          fadeObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+    fadeEls.forEach(el => fadeObs.observe(el));
+
+    // ── Accordion ────────────────────────────────────────────
+    // Each .faq-item toggles .open on click of its .faq-q row.
+    // Only one item can be open at a time within a section.
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+
+        // Close all open items
+        document.querySelectorAll('.faq-item.open').forEach(el => {
+          el.classList.remove('open');
+        });
+
+        // Re-open this one if it was closed before
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+
+    // ── Category tabs ────────────────────────────────────────
+    // Each tab has data-cat. Sections have data-cat.
+    // Clicking a tab shows only matching sections (or all).
+    const tabs     = document.querySelectorAll('.faq-tab');
+    const sections = document.querySelectorAll('.faq-section');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const cat = tab.dataset.cat;
+        sections.forEach(sec => {
+          const show = cat === 'all' || sec.dataset.cat === cat;
+          sec.style.display = show ? '' : 'none';
+        });
+
+        // Clear any active search when switching tabs
+        document.getElementById('faqSearch').value = '';
+        document.querySelectorAll('.faq-item').forEach(item => {
+          item.style.display = '';
+        });
+        document.getElementById('faqNoResults').style.display = 'none';
+      });
+    });
+
+    // ── Live search ──────────────────────────────────────────
+    // Filters all .faq-item elements across all sections by matching
+    // the question text and answer text against the search query.
+    const searchInput  = document.getElementById('faqSearch');
+    const noResults    = document.getElementById('faqNoResults');
+    const searchTermEl = document.getElementById('searchTerm');
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+
+      // Reset tab state visually (but don't change section filtering yet)
+      if (q) {
+        // When searching, show all sections and filter items
+        tabs.forEach(t => t.classList.remove('active'));
+        document.querySelector('[data-cat="all"]').classList.add('active');
+        sections.forEach(sec => sec.style.display = '');
+      }
+
+      let visibleCount = 0;
+
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const questionText = item.querySelector('.faq-q__text').textContent.toLowerCase();
+        const answerText   = item.querySelector('.faq-a__inner').textContent.toLowerCase();
+        const matches      = !q || questionText.includes(q) || answerText.includes(q);
+
+        item.style.display = matches ? '' : 'none';
+        if (matches) visibleCount++;
+      });
+
+      // Hide sections that have no visible items
+      sections.forEach(sec => {
+        const hasVisible = [...sec.querySelectorAll('.faq-item')]
+          .some(item => item.style.display !== 'none');
+        sec.style.display = hasVisible ? '' : 'none';
+      });
+
+      // Show/hide no-results message
+      searchTermEl.textContent = searchInput.value.trim();
+      noResults.style.display  = (q && visibleCount === 0) ? 'block' : 'none';
+    });
+
+  });
+  </script>
+
+</body>
+</html>
